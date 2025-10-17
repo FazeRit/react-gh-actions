@@ -9,6 +9,6 @@ jobs:
             - name: Get code
               run: |
                 echo "Cloning repo"
-                echo "${toJson}}"
+                echo "${toJson(github)}}"
                 git clone https://github.com/${{github.repository}}.git myfiles
                 cd myfiles && ls
