@@ -8,3 +8,15 @@ jobs:
         steps:
             - name: Get code
               uses: actions/checkout@v5.0.0
+            - name: Setup node
+              uses:  actions/setup-node@v6.0.0
+              with:
+                node-verstion: 22
+            - name: Print node verstion
+              run: nove -v
+            - name: Install dependencies
+              run: npm install
+            - name: Run tests
+              run: npm run test
+            - name: Compeleted job
+              run: echo "Test job compeleted"
