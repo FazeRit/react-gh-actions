@@ -12,7 +12,7 @@ jobs:
               uses:  actions/setup-node@v6.0.0
               with:
                 node-verstion: 22
-            - name: Print node verstion
+            - name: Print node version
               run: node -v
             - name: Install dependencies
               run: npm install
@@ -45,4 +45,4 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Deploy dist
-              uses: echo 'Deployment compeleted'
+              uses: echo "Deployment compeleted"
