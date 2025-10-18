@@ -21,6 +21,8 @@ jobs:
             - name: Compeleted job
               run: echo "Test job compeleted"
     build:
+        needs:
+            - test
         runs-on: ubuntu-latest
         steps:
             - name: Get code
