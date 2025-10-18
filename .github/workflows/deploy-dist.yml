@@ -11,10 +11,17 @@ jobs:
             - name: Setup node
               uses:  actions/setup-node@v6.0.0
               with:
-                node-verstion: 22
+                node-version: 22
             - name: Print node version
               run: node -v
+            - name: Cache dependencies
+              uses: actions/cache@v4
+              id: cache
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
             - name: Install dependencies
+              if: steps.cache.outputs.cache-hit != 'true'
               run: npm install
             - name: Run tests
               run: npm run test
@@ -31,9 +38,16 @@ jobs:
               uses:  actions/setup-node@v6.0.0
               with:
                   node-version: 22
-            - name: Print node verstion
+            - name: Print node version
               run: node -v
+            - name: Cache dependencies
+              uses: actions/cache@v4
+              id: cache
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
             - name: Install dependencies
+              if: steps.cache.outputs.cache-hit != 'true'
               run: npm install
             - name: Build project
               run: npm run build
