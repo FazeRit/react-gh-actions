@@ -17,8 +17,8 @@ runs:
       id: cache
       with:
         path: node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles("**/package-lock.json") }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
     - name: Install dependencies
-      if: steps.cache.outputs.cache-hit != "true"
+      if: steps.cache.outputs.cache-hit != 'true'
       run: npm install
       shell: bash
