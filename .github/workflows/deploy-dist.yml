@@ -20,3 +20,20 @@ jobs:
               run: npm run test
             - name: Compeleted job
               run: echo "Test job compeleted"
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get code
+              uses: actions/checkout@v5.0.0
+            - name: Setup node
+              uses:  actions/setup-node@v6.0.0
+              with:
+                  node-version: 22
+            - name: Print node verstion
+              run: node -v
+            - name: Install dependencies
+              run: npm install
+            - name: Build project
+              run: npm run build
+            - name: Compeleted job
+              run: echo "Test job compeleted"
