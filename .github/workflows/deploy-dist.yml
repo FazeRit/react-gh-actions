@@ -18,8 +18,8 @@ jobs:
               uses: actions/cache@v4
               id: cache
               with:
-                  path: node_modules
-                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                path: node_modules
+                key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
             - name: Install dependencies
               if: steps.cache.outputs.cache-hit != 'true'
               run: npm install
@@ -37,26 +37,36 @@ jobs:
             - name: Setup node
               uses:  actions/setup-node@v6.0.0
               with:
-                  node-version: 22
+                node-version: 22
             - name: Print node version
               run: node -v
             - name: Cache dependencies
               uses: actions/cache@v4
               id: cache
               with:
-                  path: node_modules
-                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                path: node_modules
+                key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
             - name: Install dependencies
               if: steps.cache.outputs.cache-hit != 'true'
               run: npm install
             - name: Build project
               run: npm run build
-            - name: Compeleted job
-              run: echo "Test job compeleted"
+            - name: Upload dist artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: dist-files
+                path: dist
     deploy:
         needs:
             - build
         runs-on: ubuntu-latest
         steps:
+            - name: Download dist artifact
+              uses: actions/download-artifact@v4
+              with:
+                name: dist-files
+                path: dist
             - name: Deploy dist
-              run: echo "Deployment compeleted"
+              run: |
+                ls dist
+                echo "Deployment compeleted"
